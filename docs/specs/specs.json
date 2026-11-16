@@ -72,12 +72,33 @@
       "id": "002",
       "slug": "character-animation-engine",
       "title": "캐릭터 애니메이션 엔진 연동 (Rive / Lottie / Sprite 전략 구현)",
-      "status": "planned",
+      "status": "done",
       "priority": "medium",
       "depends_on": ["000"],
       "layers": ["src/entities", "src/widgets"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "doc_path": "docs/specs/002-character-animation-engine.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "lottie-web 및 @rive-app/canvas가 설치되고 CharacterConfig에 포맷별 옵션이 정의된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "Placeholder, Lottie, Rive, Sprite 렌더러 컴포넌트가 분리 구현되고 CharacterStage 전략 맵에 연결된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "내장 샘플 프리셋 전환 및 CharacterMood 상태 반응이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "구현 코드에 [SPEC-002:AC-X] 주석이 명시되고 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
