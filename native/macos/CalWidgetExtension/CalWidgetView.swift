@@ -1,33 +1,68 @@
 import SwiftUI
 import WidgetKit
 
-// [SPEC-008:AC-2] [SPEC-008:AC-4] macOS 네이티브 WidgetKit 캘린더 보드 뷰 (Small / Medium / Large)
+// [SPEC-008:AC-2] [SPEC-008:AC-4] macOS 네이티브 WidgetKit 캘린더 보드 뷰 (Small ~ ExtraLarge)
 struct CalWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
     var entry: CalWidgetEntry
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            headerView
-
-            if entry.events.isEmpty {
-                Spacer()
-                Text("오늘 예정된 일정이 없습니다.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                Spacer()
+        Group {
+            if family == .systemExtraLarge {
+                extraLargeLayout
             } else {
-                VStack(alignment: .leading, spacing: 6) {
-                    ForEach(entry.events.prefix(maxVisibleCount)) { event in
-                        EventRowView(event: event)
-                    }
-                }
-                Spacer(minLength: 0)
+                compactLayout
             }
         }
-        .padding(12)
+        .padding(14)
         .containerBackground(.fill.tertiary, for: .widget)
         .widgetURL(URL(string: "calwidget://open"))
+    }
+
+    private var compactLayout: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            headerView
+            eventsListView(limit: maxVisibleCount, showMeta: family == .systemLarge)
+        }
+    }
+
+    private var extraLargeLayout: some View {
+        HStack(alignment: .top, spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
+                headerView
+                MiniMonthGridView(referenceDate: entry.date)
+                Spacer(minLength: 0)
+            }
+            .frame(maxWidth: 230)
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("오늘의 일정")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.secondary)
+                eventsListView(limit: 10, showMeta: true)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    @ViewBuilder
+    private func eventsListView(limit: Int, showMeta: Bool) -> some View {
+        if entry.events.isEmpty {
+            Spacer()
+            Text("오늘 예정된 일정이 없습니다.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Spacer()
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(entry.events.prefix(limit)) { event in
+                    EventRowView(event: event, showMeta: showMeta)
+                }
+            }
+            Spacer(minLength: 0)
+        }
     }
 
     private var maxVisibleCount: Int {
@@ -36,8 +71,10 @@ struct CalWidgetEntryView: View {
             return 2
         case .systemMedium:
             return 3
+        case .systemLarge:
+            return 7
         default:
-            return 6
+            return 10
         }
     }
 
@@ -67,23 +104,77 @@ struct CalWidgetEntryView: View {
     }
 }
 
+private struct MiniMonthGridView: View {
+    let referenceDate: Date
+    private let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
+
+    var body: some View {
+        let calendar = Calendar.current
+        let comps = calendar.dateComponents([.year, .month], from: referenceDate)
+        let firstDay = calendar.date(from: comps) ?? referenceDate
+        let firstWeekday = calendar.component(.weekday, from: firstDay) - 1
+        let daysCount = calendar.range(of: .day, in: .month, for: firstDay)?.count ?? 30
+        let todayDay = calendar.component(.day, from: referenceDate)
+        let cells: [Int?] = Array(repeating: nil, count: firstWeekday) + (1...daysCount).map { Optional($0) }
+
+        VStack(spacing: 6) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 7), spacing: 4) {
+                ForEach(weekdays, id: \.self) { w in
+                    Text(w)
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                }
+                ForEach(Array(cells.enumerated()), id: \.offset) { _, day in
+                    if let day {
+                        Text("\(day)")
+                            .font(.system(size: 11, weight: day == todayDay ? .bold : .regular))
+                            .frame(width: 24, height: 22)
+                            .background(
+                                day == todayDay
+                                    ? Color(red: 0.22, green: 0.74, blue: 0.97).opacity(0.28)
+                                    : Color.clear,
+                                in: RoundedRectangle(cornerRadius: 6)
+                            )
+                    } else {
+                        Color.clear.frame(width: 24, height: 22)
+                    }
+                }
+            }
+        }
+    }
+}
+
 private struct EventRowView: View {
     let event: CalendarEventSnapshot
+    let showMeta: Bool
 
     var body: some View {
         HStack(spacing: 8) {
             RoundedRectangle(cornerRadius: 2)
                 .fill(Color(hex: event.color ?? "#38BDF8"))
-                .frame(width: 3, height: 26)
+                .frame(width: 3, height: showMeta ? 30 : 24)
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(event.title)
                     .font(.system(size: 12, weight: .semibold))
                     .lineLimit(1)
 
-                Text(formattedTime)
-                    .font(.system(size: 10))
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 4) {
+                    Text(formattedTime)
+                    if showMeta, let location = event.location, !location.isEmpty {
+                        Text("· \(location)")
+                            .lineLimit(1)
+                    }
+                    if showMeta {
+                        Text(event.provider.uppercased())
+                            .font(.system(size: 9, weight: .bold))
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 1)
+                            .background(Color.secondary.opacity(0.16), in: RoundedRectangle(cornerRadius: 4))
+                    }
+                }
+                .font(.system(size: 10))
+                .foregroundStyle(.secondary)
             }
             Spacer(minLength: 0)
         }

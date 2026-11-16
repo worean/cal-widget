@@ -36,7 +36,7 @@ struct CalBoardWidget: Widget {
         }
         .configurationDisplayName("Cal-Widget 캘린더 보드")
         .description("Google Calendar 및 CalDAV 일정을 바탕화면에서 확인합니다.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge])
     }
 }
 
