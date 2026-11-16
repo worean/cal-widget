@@ -19,6 +19,15 @@ body {
   padding: 20px;
 }
 
+/* [SPEC-001:AC-2] Tauri 투명 위젯 창에서 바탕화면이 투과되도록 배경 제거 */
+:root[data-runtime="tauri"] body {
+  background: transparent;
+  padding: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+/* [/SPEC-001:AC-2] */
+
 .widget-layout {
   width: 340px;
   display: flex;
@@ -174,6 +183,39 @@ body {
   transform: scale(1.06);
   background: linear-gradient(135deg, #34d399, #38bdf8);
 }
+
+/* [SPEC-002:AC-2] Lottie / Rive / Sprite 캔버스 버튼 및 프리셋 행 */
+.character-pet__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.character-canvas-btn {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 4px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.character-canvas-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.character-canvas-btn--greeting {
+  border-color: #34d399;
+  transform: scale(1.06);
+}
+
+.character-lottie-box {
+  width: 56px;
+  height: 56px;
+}
+/* [/SPEC-002:AC-2] */
 
 /* Calendar Board */
 .calendar-board__header {

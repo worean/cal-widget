@@ -32,3 +32,6 @@ description: >-
    * 각 `acceptance_criteria` 항목은 검증 가능한 단위로 쪼개 `AC-1`, `AC-2` 형태로 ID를 부여하고 `done: false`로 초기화합니다.
 5. **요약 보고**
    * 생성된 `.md` 파일 경로, `specs.json`에 등록된 ID 및 수용 기준 목록을 사용자에게 알립니다.
+
+## 코드 추적 주석 규칙
+* 명세된 기능을 실제 코드로 구현할 때는 `AGENTS.md` 규칙에 따라 `[SPEC-NNN:AC-X]` ~ `[/SPEC-NNN:AC-X]` 주석으로 구현 범위를 명시합니다.

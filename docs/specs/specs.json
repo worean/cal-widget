@@ -39,24 +39,66 @@
       "id": "001",
       "slug": "tauri-widget-window",
       "title": "Tauri v2 초기화 & 투명 바탕화면 위젯 창 / 트레이 구성",
-      "status": "planned",
+      "status": "done",
       "priority": "high",
       "depends_on": ["000"],
-      "layers": ["src-tauri", "src/app", "src/pages"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "layers": ["src-tauri", "src/shared", "src/widgets", "src/app"],
+      "doc_path": "docs/specs/001-tauri-widget-window.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "@tauri-apps/cli 및 @tauri-apps/api가 설치되고 src-tauri Rust 프로젝트가 구성된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "메인 위젯 창이 투명(transparent: true), 프레임리스(decorations: false), 드래그 이동 가능 상태로 설정된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "시스템 트레이 아이콘과 메뉴(보이기/숨기기, 항상 위 토글, 종료)가 동작하도록 Rust 코드가 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "cargo check 및 yarn typecheck && yarn build가 오류 없이 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
       "id": "002",
       "slug": "character-animation-engine",
       "title": "캐릭터 애니메이션 엔진 연동 (Rive / Lottie / Sprite 전략 구현)",
-      "status": "planned",
+      "status": "done",
       "priority": "medium",
       "depends_on": ["000"],
       "layers": ["src/entities", "src/widgets"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "doc_path": "docs/specs/002-character-animation-engine.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "lottie-web 및 @rive-app/canvas가 설치되고 CharacterConfig에 포맷별 옵션이 정의된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "Placeholder, Lottie, Rive, Sprite 렌더러 컴포넌트가 분리 구현되고 CharacterStage 전략 맵에 연결된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "내장 샘플 프리셋 전환 및 CharacterMood 상태 반응이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "구현 코드에 [SPEC-002:AC-X] 주석이 명시되고 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
@@ -103,6 +145,18 @@
       "priority": "medium",
       "depends_on": ["001"],
       "layers": ["src-tauri"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "007",
+      "slug": "desktop-mascot-behavior",
+      "title": "데스크톱 마스코트 자율 이동, 화면 경계/창 위 인터랙션 (Shimeji 스타일)",
+      "status": "planned",
+      "priority": "medium",
+      "depends_on": ["001", "002"],
+      "layers": ["src-tauri", "src/entities", "src/widgets"],
       "doc_path": null,
       "acceptance_criteria": [],
       "updated_at": "2026-11-16"

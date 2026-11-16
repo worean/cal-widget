@@ -32,10 +32,16 @@ export function CalendarBoardWidget({
   return (
     <GlassPanel className="calendar-board">
       <header className="calendar-board__header">
-        <div>
-          <span className="calendar-board__eyebrow">TODAY</span>
-          <h2 className="calendar-board__title">{formatTodayHeader()}</h2>
+        {/* [SPEC-001:AC-2] 바탕화면 위젯 창 드래그 이동 영역 */}
+        <div data-tauri-drag-region style={{ cursor: "grab", flex: 1 }}>
+          <span className="calendar-board__eyebrow" data-tauri-drag-region>
+            TODAY
+          </span>
+          <h2 className="calendar-board__title" data-tauri-drag-region>
+            {formatTodayHeader()}
+          </h2>
         </div>
+        {/* [/SPEC-001:AC-2] */}
         <div className="calendar-board__actions">
           <Tooltip content="미니 달력 열기/닫기">
             <IconButton
