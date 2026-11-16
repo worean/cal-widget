@@ -24,6 +24,6 @@ if [ ! -d "$APPEX_PATH" ]; then
 fi
 
 pluginkit -a "$APPEX_PATH" || true
-pluginkit -e use -i com.worean.calwidget.widget || true
+pluginkit -e use -i com.worean.calwidget.host.widget || true
 echo "Built and registered signed macOS WidgetKit extension: $APPEX_PATH"
 # [/SPEC-008:AC-3]
