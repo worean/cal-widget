@@ -12,8 +12,9 @@ dist
 dist-ssr
 *.local
 
-# Tauri / Rust
+# Tauri / Rust / macOS Native Widget Build
 src-tauri/target
+native/macos/build/
 **/*.rs.bk
 
 # Environment / Secrets

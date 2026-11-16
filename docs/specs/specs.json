@@ -249,7 +249,7 @@
       "id": "008",
       "slug": "macos-native-widgetkit",
       "title": "macOS 네이티브 WidgetKit 위젯 익스텐션 (.appex)",
-      "status": "planned",
+      "status": "done",
       "priority": "high",
       "depends_on": ["003"],
       "layers": ["src-tauri", "native/macos"],
@@ -258,22 +258,22 @@
         {
           "id": "AC-1",
           "text": "Tauri Rust 백엔드가 macOS App Group 공유 경로에 일정 스냅샷을 동기화한다",
-          "done": false
+          "done": true
         },
         {
           "id": "AC-2",
           "text": "Swift WidgetKit 타겟이 공유 데이터를 읽어 캘린더 보드 위젯을 렌더링한다",
-          "done": false
+          "done": true
         },
         {
           "id": "AC-3",
           "text": "Tauri .app 번들에 .appex가 포함되어 macOS 위젯 갤러리에 등록된다",
-          "done": false
+          "done": true
         },
         {
           "id": "AC-4",
           "text": "위젯 클릭 시 Deep Link로 Tauri 앱과 연동된다",
-          "done": false
+          "done": true
         }
       ],
       "updated_at": "2026-11-16"

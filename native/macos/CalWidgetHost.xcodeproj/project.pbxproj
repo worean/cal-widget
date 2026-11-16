@@ -1,0 +1,292 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A0000010000000000000001 /* SnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000010000000000000001 /* SnapshotStore.swift */; };
+		1A0000020000000000000001 /* CalWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000020000000000000001 /* CalWidgetView.swift */; };
+		1A0000030000000000000001 /* CalWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000030000000000000001 /* CalWidgetBundle.swift */; };
+		1A0000040000000000000001 /* HostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0000040000000000000001 /* HostApp.swift */; };
+		1A0000050000000000000001 /* CalWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C0000020000000000000001 /* CalWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1D0000010000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F0000010000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E0000020000000000000001;
+			remoteInfo = CalWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1G0000010000000000000001 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1A0000050000000000000001 /* CalWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1B0000010000000000000001 /* SnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotStore.swift; sourceTree = "<group>"; };
+		1B0000020000000000000001 /* CalWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalWidgetView.swift; sourceTree = "<group>"; };
+		1B0000030000000000000001 /* CalWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalWidgetBundle.swift; sourceTree = "<group>"; };
+		1B0000040000000000000001 /* HostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostApp.swift; sourceTree = "<group>"; };
+		1B0000050000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B0000060000000000000001 /* CalWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalWidgetExtension.entitlements; sourceTree = "<group>"; };
+		1B0000070000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C0000010000000000000001 /* CalWidgetHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalWidgetHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C0000020000000000000001 /* CalWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CalWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1H0000010000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				1H0000020000000000000001 /* CalWidgetHost */,
+				1H0000030000000000000001 /* CalWidgetExtension */,
+				1H0000040000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1H0000020000000000000001 /* CalWidgetHost */ = {
+			isa = PBXGroup;
+			children = (
+				1B0000040000000000000001 /* HostApp.swift */,
+				1B0000070000000000000001 /* Info.plist */,
+			);
+			path = CalWidgetHost;
+			sourceTree = "<group>";
+		};
+		1H0000030000000000000001 /* CalWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1B0000010000000000000001 /* SnapshotStore.swift */,
+				1B0000020000000000000001 /* CalWidgetView.swift */,
+				1B0000030000000000000001 /* CalWidgetBundle.swift */,
+				1B0000050000000000000001 /* Info.plist */,
+				1B0000060000000000000001 /* CalWidgetExtension.entitlements */,
+			);
+			path = CalWidgetExtension;
+			sourceTree = "<group>";
+		};
+		1H0000040000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C0000010000000000000001 /* CalWidgetHost.app */,
+				1C0000020000000000000001 /* CalWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1E0000010000000000000001 /* CalWidgetHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1I0000020000000000000001 /* Build configuration list for PBXNativeTarget "CalWidgetHost" */;
+			buildPhases = (
+				1J0000010000000000000001 /* Sources */,
+				1G0000010000000000000001 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1K0000010000000000000001 /* PBXTargetDependency */,
+			);
+			name = CalWidgetHost;
+			productName = CalWidgetHost;
+			productReference = 1C0000010000000000000001 /* CalWidgetHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1E0000020000000000000001 /* CalWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1I0000030000000000000001 /* Build configuration list for PBXNativeTarget "CalWidgetExtension" */;
+			buildPhases = (
+				1J0000020000000000000001 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CalWidgetExtension;
+			productName = CalWidgetExtension;
+			productReference = 1C0000020000000000000001 /* CalWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F0000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 1I0000010000000000000001 /* Build configuration list for PBXProject "CalWidgetHost" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = ko;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				ko,
+				en,
+			);
+			mainGroup = 1H0000010000000000000001;
+			productRefGroup = 1H0000040000000000000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1E0000010000000000000001 /* CalWidgetHost */,
+				1E0000020000000000000001 /* CalWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1J0000010000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0000040000000000000001 /* HostApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1J0000020000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0000010000000000000001 /* SnapshotStore.swift in Sources */,
+				1A0000020000000000000001 /* CalWidgetView.swift in Sources */,
+				1A0000030000000000000001 /* CalWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1K0000010000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E0000020000000000000001 /* CalWidgetExtension */;
+			targetProxy = 1D0000010000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1L0000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1L0000020000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1L0000030000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalWidgetHost/CalWidgetHost.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
+				INFOPLIST_FILE = CalWidgetHost/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.host;
+				PRODUCT_NAME = CalWidgetHost;
+			};
+			name = Debug;
+		};
+		1L0000040000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalWidgetHost/CalWidgetHost.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
+				INFOPLIST_FILE = CalWidgetHost/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.host;
+				PRODUCT_NAME = CalWidgetHost;
+			};
+			name = Release;
+		};
+		1L0000050000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalWidgetExtension/CalWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
+				INFOPLIST_FILE = CalWidgetExtension/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.host.widget;
+				PRODUCT_NAME = CalWidgetExtension;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1L0000060000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalWidgetExtension/CalWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
+				INFOPLIST_FILE = CalWidgetExtension/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.host.widget;
+				PRODUCT_NAME = CalWidgetExtension;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1I0000010000000000000001 /* Build configuration list for PBXProject "CalWidgetHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1L0000010000000000000001 /* Debug */,
+				1L0000020000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1I0000020000000000000001 /* Build configuration list for PBXNativeTarget "CalWidgetHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1L0000030000000000000001 /* Debug */,
+				1L0000040000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1I0000030000000000000001 /* Build configuration list for PBXNativeTarget "CalWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1L0000050000000000000001 /* Debug */,
+				1L0000060000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F0000010000000000000001 /* Project object */;
+}
