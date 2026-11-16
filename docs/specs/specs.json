@@ -105,12 +105,33 @@
       "id": "003",
       "slug": "sqlite-cache-and-ipc",
       "title": "로컬 SQLite 캐시 & TauriCalendarRepository IPC 연결",
-      "status": "planned",
+      "status": "done",
       "priority": "high",
       "depends_on": ["001"],
       "layers": ["src-tauri", "src/shared", "src/app"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "doc_path": "docs/specs/003-sqlite-cache-and-ipc.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "rusqlite 기반 SQLite 스키마(calendar_sources, calendar_events) 및 초기 시드 마이그레이션이 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "Tauri IPC 커맨드 및 macOS 위젯용 JSON 스냅샷 내보내기가 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "TauriCalendarRepository가 구현되고 AppProviders에서 런타임에 따라 자동 주입된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "코드에 [SPEC-003:AC-X] 주석이 명시되고 cargo check 및 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
