@@ -17,10 +17,12 @@
         "title": "Cal-Widget",
         "width": 380,
         "height": 540,
+        "minWidth": 340,
+        "minHeight": 420,
         "transparent": true,
         "decorations": false,
         "shadow": false,
-        "resizable": false,
+        "resizable": true,
         "fullscreen": false,
         "skipTaskbar": true,
         "alwaysOnTop": false

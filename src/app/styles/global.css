@@ -19,14 +19,30 @@ body {
   padding: 20px;
 }
 
-/* [SPEC-001:AC-2] Tauri 투명 위젯 창에서 바탕화면이 투과되도록 배경 제거 */
+/* [SPEC-001:AC-2] [SPEC-006:AC-3] Tauri 투명 위젯 창에서 창 크기에 맞춰 유연하게 확장 */
 :root[data-runtime="tauri"] body {
   background: transparent;
   padding: 8px;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
 }
-/* [/SPEC-001:AC-2] */
+
+:root[data-runtime="tauri"] #root {
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-runtime="tauri"] .widget-layout {
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-runtime="tauri"] .calendar-board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* [/SPEC-001:AC-2] [/SPEC-006:AC-3] */
 
 .widget-layout {
   width: 340px;
@@ -339,6 +355,37 @@ body {
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* [SPEC-006:AC-3] 640px 이상 대형 보드일 때 2컬럼(달력 + 일정) 레이아웃 */
+.calendar-board__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.calendar-board__events {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@media (min-width: 640px) {
+  .calendar-board__content {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .calendar-board__mini {
+    width: 280px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-right: 16px;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+/* [/SPEC-006:AC-3] */
 
 .calendar-board__status {
   font-size: 13px;

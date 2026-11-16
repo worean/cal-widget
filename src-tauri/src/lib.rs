@@ -3,6 +3,7 @@ mod providers;
 mod storage;
 
 use desktop::window_bounds::{query_visible_windows, WindowRect};
+use desktop::window_level::{apply_full_board_size, apply_pin_mode};
 use providers::caldav::CalDavCredentials;
 use providers::google::authorize_google_oauth;
 use providers::sync_provider_account;
@@ -191,6 +192,24 @@ fn toggle_calendar_board(app: tauri::AppHandle) {
 }
 // [/SPEC-007:AC-4]
 
+// [SPEC-006:AC-1] 창 고정 모드(normal/desktop/always_on_top) 및 전체 보드 크기 토글 커맨드
+#[tauri::command]
+fn set_widget_pin_mode(app: tauri::AppHandle, mode: String) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window("main") {
+        apply_pin_mode(&window, &mode)?;
+    }
+    Ok(())
+}
+
+#[tauri::command]
+fn set_full_board_mode(app: tauri::AppHandle, full: bool) -> Result<(), String> {
+    if let Some(window) = app.get_webview_window("main") {
+        apply_full_board_size(&window, full)?;
+    }
+    Ok(())
+}
+// [/SPEC-006:AC-1]
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -203,7 +222,9 @@ pub fn run() {
             list_provider_accounts_cmd,
             connect_google_account,
             add_caldav_account,
-            remove_provider_account
+            remove_provider_account,
+            set_widget_pin_mode,
+            set_full_board_mode
         ])
         .setup(|app| {
             if cfg!(debug_assertions) {
@@ -239,14 +260,27 @@ pub fn run() {
                 MenuItem::with_id(app, "toggle_mascot", "마스코트 보이기 / 숨기기", true, None::<&str>)?;
             let always_on_top_item =
                 CheckMenuItem::with_id(app, "toggle_top", "위젯 항상 위에 고정", true, false, None::<&str>)?;
+            let desktop_pin_item =
+                CheckMenuItem::with_id(app, "toggle_desktop", "바탕화면 보드 모드 (배경 고정)", true, false, None::<&str>)?;
+            let full_board_item =
+                CheckMenuItem::with_id(app, "toggle_full_board", "화면 꽉 채우기 / 기본 크기", true, false, None::<&str>)?;
             let quit_item = MenuItem::with_id(app, "quit", "종료", true, None::<&str>)?;
 
             let menu = Menu::with_items(
                 app,
-                &[&toggle_item, &toggle_mascot_item, &always_on_top_item, &quit_item],
+                &[
+                    &toggle_item,
+                    &toggle_mascot_item,
+                    &always_on_top_item,
+                    &desktop_pin_item,
+                    &full_board_item,
+                    &quit_item,
+                ],
             )?;
 
             let always_on_top_handle = always_on_top_item.clone();
+            let desktop_pin_handle = desktop_pin_item.clone();
+            let full_board_handle = full_board_item.clone();
             let mut tray_builder = TrayIconBuilder::with_id("main-tray")
                 .menu(&menu)
                 .show_menu_on_left_click(false)
@@ -256,8 +290,28 @@ pub fn run() {
                     "toggle_top" => {
                         if let Some(window) = app.get_webview_window("main") {
                             let next = !window.is_always_on_top().unwrap_or(false);
-                            let _ = window.set_always_on_top(next);
+                            let _ = apply_pin_mode(&window, if next { "always_on_top" } else { "normal" });
                             let _ = always_on_top_handle.set_checked(next);
+                            if next {
+                                let _ = desktop_pin_handle.set_checked(false);
+                            }
+                        }
+                    }
+                    "toggle_desktop" => {
+                        if let Some(window) = app.get_webview_window("main") {
+                            let next = !desktop_pin_handle.is_checked().unwrap_or(false);
+                            let _ = apply_pin_mode(&window, if next { "desktop" } else { "normal" });
+                            let _ = desktop_pin_handle.set_checked(next);
+                            if next {
+                                let _ = always_on_top_handle.set_checked(false);
+                            }
+                        }
+                    }
+                    "toggle_full_board" => {
+                        if let Some(window) = app.get_webview_window("main") {
+                            let next = !full_board_handle.is_checked().unwrap_or(false);
+                            let _ = apply_full_board_size(&window, next);
+                            let _ = full_board_handle.set_checked(next);
                         }
                     }
                     "quit" => app.exit(0),

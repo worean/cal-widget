@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { invoke } from "@tauri-apps/api/core";
 import {
   EventCard,
   MiniCalendar,
   type CalendarEvent,
 } from "@/entities/calendar-event";
 import { formatTodayHeader } from "@/shared/lib/date";
+import { isTauriRuntime } from "@/shared/lib/platform";
 import { GlassPanel, IconButton, Tooltip } from "@/shared/ui";
 
 interface CalendarBoardWidgetProps {
@@ -28,6 +30,29 @@ export function CalendarBoardWidget({
 }: CalendarBoardWidgetProps) {
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [showCalendar, setShowCalendar] = useState(false);
+  // [SPEC-006:AC-1] [SPEC-006:AC-3] 바탕화면 고정 및 전체 화면 보드 토글 상태
+  const [isDesktopPin, setIsDesktopPin] = useState(false);
+  const [isFullBoard, setIsFullBoard] = useState(false);
+
+  const handleToggleDesktopPin = () => {
+    const next = !isDesktopPin;
+    setIsDesktopPin(next);
+    if (isTauriRuntime()) {
+      void invoke("set_widget_pin_mode", { mode: next ? "desktop" : "normal" });
+    }
+  };
+
+  const handleToggleFullBoard = () => {
+    const next = !isFullBoard;
+    setIsFullBoard(next);
+    if (next) {
+      setShowCalendar(true);
+    }
+    if (isTauriRuntime()) {
+      void invoke("set_full_board_mode", { full: next });
+    }
+  };
+  // [/SPEC-006:AC-1] [/SPEC-006:AC-3]
 
   return (
     <GlassPanel className="calendar-board">
@@ -43,6 +68,30 @@ export function CalendarBoardWidget({
         </div>
         {/* [/SPEC-001:AC-2] */}
         <div className="calendar-board__actions">
+          {/* [SPEC-006:AC-1] [SPEC-006:AC-3] 바탕화면 고정 및 전체 보드 크기 버튼 */}
+          {isTauriRuntime() && (
+            <>
+              <Tooltip content={isDesktopPin ? "일반 창 모드" : "바탕화면 고정 모드"}>
+                <IconButton
+                  onClick={handleToggleDesktopPin}
+                  aria-pressed={isDesktopPin}
+                  title="바탕화면 고정"
+                >
+                  {isDesktopPin ? "📍" : "📌"}
+                </IconButton>
+              </Tooltip>
+              <Tooltip content={isFullBoard ? "기본 위젯 크기" : "화면 꽉 채우기"}>
+                <IconButton
+                  onClick={handleToggleFullBoard}
+                  aria-pressed={isFullBoard}
+                  title="화면 크기 전환"
+                >
+                  {isFullBoard ? "🗗" : "⛶"}
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+          {/* [/SPEC-006:AC-1] [/SPEC-006:AC-3] */}
           <Tooltip content="미니 달력 열기/닫기">
             <IconButton
               onClick={() => setShowCalendar((prev) => !prev)}
@@ -69,30 +118,36 @@ export function CalendarBoardWidget({
         </div>
       </header>
 
-      {showCalendar && (
-        <div className="calendar-board__mini">
-          <MiniCalendar
-            selectedDate={selectedDate}
-            onSelectDate={setSelectedDate}
-          />
+      {/* [SPEC-006:AC-3] 창 너비에 따라 반응형 2컬럼 확장되는 보드 본문 */}
+      <div className="calendar-board__content">
+        {showCalendar && (
+          <div className="calendar-board__mini">
+            <MiniCalendar
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+            />
+          </div>
+        )}
+
+        <div className="calendar-board__events">
+          {error && (
+            <p className="calendar-board__status calendar-board__status--error">
+              {error}
+            </p>
+          )}
+
+          {!error && events.length === 0 && !isLoading && (
+            <p className="calendar-board__status">오늘 예정된 일정이 없습니다.</p>
+          )}
+
+          <ul className="event-list">
+            {events.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </ul>
         </div>
-      )}
-
-      {error && (
-        <p className="calendar-board__status calendar-board__status--error">
-          {error}
-        </p>
-      )}
-
-      {!error && events.length === 0 && !isLoading && (
-        <p className="calendar-board__status">오늘 예정된 일정이 없습니다.</p>
-      )}
-
-      <ul className="event-list">
-        {events.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </ul>
+      </div>
+      {/* [/SPEC-006:AC-3] */}
     </GlassPanel>
   );
 }
