@@ -14,4 +14,4 @@
 | 005 | CalDAV (iCloud, Nextcloud 등) 프로바이더 구현 | `Done` | [005-caldav-provider.md](005-caldav-provider.md) |
 | 006 | 크로스 플랫폼(macOS/Windows/Linux) 창 고정·클릭 투과·패키징 | `Planned` | (작성 예정) |
 | 007 | 데스크톱 마스코트 자율 이동, 화면 경계/창 위 인터랙션 (Shimeji 스타일) | `Done` | [007-desktop-mascot-behavior.md](007-desktop-mascot-behavior.md) |
-| 008 | macOS 네이티브 WidgetKit 위젯 익스텐션 (`.appex`) | `Planned` | [008-macos-native-widgetkit.md](008-macos-native-widgetkit.md) |
+| 008 | macOS 네이티브 WidgetKit 위젯 익스텐션 (`.appex`) | `Done` | [008-macos-native-widgetkit.md](008-macos-native-widgetkit.md) |

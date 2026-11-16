@@ -1,7 +1,7 @@
 # [008] macOS 네이티브 WidgetKit 위젯 익스텐션
 
 * **ID**: `008`
-* **상태**: `planned`
+* **상태**: `done`
 * **선행 스펙**: `003`
 
 ---
@@ -11,10 +11,10 @@
 *(실시간 마스코트 애니메이션, 계정 연동, Windows/Linux 캘린더 보드는 Tauri 앱이 계속 담당합니다.)*
 
 ## 2. 수용 기준 (Acceptance Criteria)
-- [ ] `AC-1`: Tauri Rust 백엔드(`003`)가 macOS App Group 공유 경로(또는 지정된 JSON/SQLite 스냅샷)에 오늘의 일정 데이터를 동기화해 기록한다
-- [ ] `AC-2`: Swift + WidgetKit 타겟(`CalWidgetExtension.appex`)이 생성되고, 공유 데이터를 읽어 Small/Medium/Large 캘린더 보드를 렌더링한다
-- [ ] `AC-3`: Tauri `.app` 번들 빌드 시 WidgetKit `.appex`가 `Contents/PlugIns/`에 포함되고 `pluginkit`으로 위젯 갤러리에 등록된다
-- [ ] `AC-4`: 위젯 클릭 시 Deep Link(URL Scheme)를 통해 Tauri 앱의 해당 일정 또는 설정 화면으로 연결된다
+- [x] `AC-1`: Tauri Rust 백엔드(`003`)가 macOS App Group 공유 경로(또는 지정된 JSON/SQLite 스냅샷)에 오늘의 일정 데이터를 동기화해 기록한다
+- [x] `AC-2`: Swift + WidgetKit 타겟(`CalWidgetExtension.appex`)이 생성되고, 공유 데이터를 읽어 Small/Medium/Large 캘린더 보드를 렌더링한다
+- [x] `AC-3`: Tauri `.app` 번들 빌드 시 WidgetKit `.appex`가 `Contents/PlugIns/`에 포함되고 `pluginkit`으로 위젯 갤러리에 등록된다
+- [x] `AC-4`: 위젯 클릭 시 Deep Link(URL Scheme)를 통해 Tauri 앱의 해당 일정 또는 설정 화면으로 연결된다
 
 ## 3. 아키텍처 및 데이터 흐름
 ```text

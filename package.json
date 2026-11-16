@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "tauri": "tauri",
-    "build:mac:dev": "tauri build --debug --bundles app"
+    "build:mac:dev": "tauri build --debug --bundles app",
+    "build:mac:widget": "bash scripts/build-macos-widget.sh"
   },
   "dependencies": {
     "@rive-app/canvas": "^2.50.0",
