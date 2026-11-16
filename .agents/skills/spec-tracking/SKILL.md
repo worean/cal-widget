@@ -31,3 +31,5 @@ description: >-
 
 * `specs.json` 수정 후 반드시 유효한 JSON 문법인지 확인합니다.
 * `status`를 `"done"`으로 변경하기 전에 해당 스펙의 모든 `acceptance_criteria`가 `done: true`이고 실제 검증(빌드/테스트)이 통과했는지 확인합니다.
+* 구현 코드에 `[SPEC-NNN:AC-X]` 추적 주석이 누락되지 않았는지 함께 점검합니다.
+* 요구사항 구현 및 검증이 완료되면 `AGENTS.md` 규칙에 따라 커밋을 진행하며, subject에 스펙 ID와 완료된 AC(TC) 목록을 포함합니다(예: `feat(SPEC-001): ... [AC-1..AC-4]`).

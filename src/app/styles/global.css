@@ -19,6 +19,15 @@ body {
   padding: 20px;
 }
 
+/* [SPEC-001:AC-2] Tauri 투명 위젯 창에서 바탕화면이 투과되도록 배경 제거 */
+:root[data-runtime="tauri"] body {
+  background: transparent;
+  padding: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+/* [/SPEC-001:AC-2] */
+
 .widget-layout {
   width: 340px;
   display: flex;
