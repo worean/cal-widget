@@ -205,7 +205,9 @@
 		1L0000030000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
 				INFOPLIST_FILE = CalWidgetHost/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget;
 				PRODUCT_NAME = CalWidgetHost;
@@ -215,7 +217,9 @@
 		1L0000040000000000000001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
 				INFOPLIST_FILE = CalWidgetHost/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget;
 				PRODUCT_NAME = CalWidgetHost;
@@ -226,7 +230,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CalWidgetExtension/CalWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
 				INFOPLIST_FILE = CalWidgetExtension/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.widget;
 				PRODUCT_NAME = CalWidgetExtension;
@@ -238,7 +244,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CalWidgetExtension/CalWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YR86NF7DBP;
 				INFOPLIST_FILE = CalWidgetExtension/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.worean.calwidget.widget;
 				PRODUCT_NAME = CalWidgetExtension;
@@ -277,7 +285,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = 1F0000010000000000000001 /* Project object */;
 }
