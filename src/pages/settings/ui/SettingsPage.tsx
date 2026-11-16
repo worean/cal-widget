@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import type { CalendarSource } from "@/entities/calendar-event";
+import {
+  AccountConnectForm,
+  useCalendarAccounts,
+} from "@/features/calendar-accounts";
 import { useDependencies } from "@/shared/api/di-container";
 import { Badge, GlassPanel, IconButton } from "@/shared/ui";
 
@@ -13,10 +17,18 @@ interface SettingsPageProps {
 export function SettingsPage({ onBack }: SettingsPageProps) {
   const { calendarRepository } = useDependencies();
   const [sources, setSources] = useState<CalendarSource[]>([]);
+  const {
+    accounts,
+    isSubmitting,
+    error,
+    connectGoogle,
+    addCalDav,
+    removeAccount,
+  } = useCalendarAccounts();
 
   useEffect(() => {
     void calendarRepository.getSources().then(setSources);
-  }, [calendarRepository]);
+  }, [calendarRepository, accounts]);
 
   return (
     <main className="widget-layout">
@@ -42,14 +54,34 @@ export function SettingsPage({ onBack }: SettingsPageProps) {
                 />
                 <span className="source-item__name">{src.name}</span>
                 <Badge>{src.provider}</Badge>
+                {accounts.some((acc) => acc.id === src.id) && (
+                  <IconButton
+                    onClick={() => void removeAccount(src.id)}
+                    title="연동 해제"
+                  >
+                    🗑
+                  </IconButton>
+                )}
               </li>
             ))}
           </ul>
         </section>
 
-        <p className="settings-note">
-          Tauri Rust 백엔드 연동 후 Google OAuth 2.0 및 CalDAV 계정 추가 기능이 활성화됩니다.
-        </p>
+        {/* [SPEC-004:AC-4] [SPEC-005:AC-3] Google OAuth / CalDAV 계정 추가 폼 */}
+        <section className="settings-section">
+          <h3 className="settings-section__title">새 캘린더 계정 추가</h3>
+          {error && (
+            <p className="calendar-board__status calendar-board__status--error">
+              {error}
+            </p>
+          )}
+          <AccountConnectForm
+            isSubmitting={isSubmitting}
+            onConnectGoogle={connectGoogle}
+            onAddCalDav={addCalDav}
+          />
+        </section>
+        {/* [/SPEC-004:AC-4] [/SPEC-005:AC-3] */}
       </GlassPanel>
     </main>
   );

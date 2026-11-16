@@ -245,6 +245,69 @@ body {
 }
 /* [/SPEC-007:AC-1] */
 
+/* [SPEC-004:AC-4] [SPEC-005:AC-3] 계정 연동 폼 스타일 */
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-form__tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.account-form__tab {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.account-form__tab--active {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+  color: #f8fafc;
+}
+
+.account-form__input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 23, 42, 0.7);
+  color: #f8fafc;
+  font-size: 12px;
+  outline: none;
+}
+
+.account-form__input:focus {
+  border-color: #38bdf8;
+}
+
+.account-form__submit {
+  margin-top: 2px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-form__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+/* [/SPEC-004:AC-4] [/SPEC-005:AC-3] */
+
 /* Calendar Board */
 .calendar-board__header {
   display: flex;

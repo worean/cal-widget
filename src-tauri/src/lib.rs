@@ -1,13 +1,19 @@
 mod desktop;
+mod providers;
 mod storage;
 
 use desktop::window_bounds::{query_visible_windows, WindowRect};
+use providers::caldav::CalDavCredentials;
+use providers::google::authorize_google_oauth;
+use providers::sync_provider_account;
 use rusqlite::Connection;
 use std::path::PathBuf;
 use std::sync::Mutex;
 use storage::db::{
-    export_widget_snapshot, init_database, list_events_in_range, list_sources, CalendarEventDto,
-    CalendarSourceDto,
+    delete_provider_account, export_widget_snapshot, init_database, list_events_in_range,
+    list_provider_accounts, list_sources, replace_events_for_source, save_provider_account,
+    update_provider_credentials, CalendarEventDto, CalendarSourceDto, ProviderAccountDto,
+    ProviderAccountRecord,
 };
 use tauri::{
     menu::{CheckMenuItem, Menu, MenuItem},
@@ -37,12 +43,128 @@ fn get_calendar_events(
     list_events_in_range(&conn, &start_at, &end_at)
 }
 
-#[tauri::command]
-fn sync_calendars(state: State<'_, AppStorageState>) -> Result<(), String> {
+// [SPEC-004:AC-3] [SPEC-005:AC-1] 등록된 모든 외부 캘린더(Google/CalDAV) 동기화 및 스냅샷 갱신
+async fn sync_all_accounts(state: &AppStorageState) -> Result<(), String> {
+    let accounts = {
+        let conn = state.conn.lock().map_err(|e| e.to_string())?;
+        list_provider_accounts(&conn)?
+    };
+
+    for account in accounts {
+        let result = sync_provider_account(&account).await?;
+        let conn = state.conn.lock().map_err(|e| e.to_string())?;
+        if let Some(ref updated_json) = result.updated_credentials_json {
+            update_provider_credentials(&conn, &account.id, updated_json)?;
+        }
+        replace_events_for_source(&conn, &account.id, &result.events)?;
+    }
+
     let conn = state.conn.lock().map_err(|e| e.to_string())?;
     export_widget_snapshot(&conn, &state.snapshot_path)
 }
+
+#[tauri::command]
+async fn sync_calendars(state: State<'_, AppStorageState>) -> Result<(), String> {
+    sync_all_accounts(&state).await
+}
+// [/SPEC-004:AC-3] [/SPEC-005:AC-1]
 // [/SPEC-003:AC-2]
+
+// [SPEC-004:AC-2] [SPEC-004:AC-4] [SPEC-005:AC-3] 외부 캘린더 계정 관리 IPC 커맨드
+#[tauri::command]
+fn list_provider_accounts_cmd(
+    state: State<'_, AppStorageState>,
+) -> Result<Vec<ProviderAccountDto>, String> {
+    let conn = state.conn.lock().map_err(|e| e.to_string())?;
+    let records = list_provider_accounts(&conn)?;
+    Ok(records
+        .into_iter()
+        .map(|r| ProviderAccountDto {
+            id: r.id,
+            provider: r.provider,
+            display_name: r.display_name,
+            calendar_url: r.calendar_url,
+        })
+        .collect())
+}
+
+#[tauri::command]
+async fn connect_google_account(
+    state: State<'_, AppStorageState>,
+    display_name: String,
+    client_id: String,
+    client_secret: String,
+) -> Result<ProviderAccountDto, String> {
+    let creds = authorize_google_oauth(client_id, client_secret).await?;
+    let creds_json = serde_json::to_string(&creds).map_err(|e| e.to_string())?;
+    let account_id = format!("google-{}", chrono::Utc::now().timestamp_millis());
+    let record = ProviderAccountRecord {
+        id: account_id.clone(),
+        provider: "google".to_string(),
+        display_name: display_name.clone(),
+        credentials_json: creds_json,
+        calendar_url: None,
+    };
+
+    {
+        let conn = state.conn.lock().map_err(|e| e.to_string())?;
+        save_provider_account(&conn, &record, "#4285F4")?;
+    }
+
+    let _ = sync_all_accounts(&state).await;
+
+    Ok(ProviderAccountDto {
+        id: account_id,
+        provider: "google".to_string(),
+        display_name,
+        calendar_url: None,
+    })
+}
+
+#[tauri::command]
+async fn add_caldav_account(
+    state: State<'_, AppStorageState>,
+    display_name: String,
+    calendar_url: String,
+    username: String,
+    password: String,
+) -> Result<ProviderAccountDto, String> {
+    let creds = CalDavCredentials { username, password };
+    let creds_json = serde_json::to_string(&creds).map_err(|e| e.to_string())?;
+    let account_id = format!("caldav-{}", chrono::Utc::now().timestamp_millis());
+    let record = ProviderAccountRecord {
+        id: account_id.clone(),
+        provider: "caldav".to_string(),
+        display_name: display_name.clone(),
+        credentials_json: creds_json,
+        calendar_url: Some(calendar_url.clone()),
+    };
+
+    {
+        let conn = state.conn.lock().map_err(|e| e.to_string())?;
+        save_provider_account(&conn, &record, "#10B981")?;
+    }
+
+    sync_all_accounts(&state).await?;
+
+    Ok(ProviderAccountDto {
+        id: account_id,
+        provider: "caldav".to_string(),
+        display_name,
+        calendar_url: Some(calendar_url),
+    })
+}
+
+#[tauri::command]
+fn remove_provider_account(
+    state: State<'_, AppStorageState>,
+    account_id: String,
+) -> Result<(), String> {
+    let conn = state.conn.lock().map_err(|e| e.to_string())?;
+    delete_provider_account(&conn, &account_id)?;
+    export_widget_snapshot(&conn, &state.snapshot_path)
+}
+// [/SPEC-004:AC-2] [/SPEC-004:AC-4] [/SPEC-005:AC-3]
 
 // [SPEC-001:AC-3] 시스템 트레이 창 표시/숨김 토글 헬퍼
 fn toggle_window_by_label(app: &tauri::AppHandle, label: &str) {
@@ -77,7 +199,11 @@ pub fn run() {
             toggle_calendar_board,
             get_calendar_sources,
             get_calendar_events,
-            sync_calendars
+            sync_calendars,
+            list_provider_accounts_cmd,
+            connect_google_account,
+            add_caldav_account,
+            remove_provider_account
         ])
         .setup(|app| {
             if cfg!(debug_assertions) {
