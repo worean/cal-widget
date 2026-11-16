@@ -153,12 +153,33 @@
       "id": "007",
       "slug": "desktop-mascot-behavior",
       "title": "데스크톱 마스코트 자율 이동, 화면 경계/창 위 인터랙션 (Shimeji 스타일)",
-      "status": "planned",
+      "status": "done",
       "priority": "medium",
       "depends_on": ["001", "002"],
-      "layers": ["src-tauri", "src/entities", "src/widgets"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "layers": ["src-tauri", "src/features", "src/pages", "src/app"],
+      "doc_path": "docs/specs/007-desktop-mascot-behavior.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "Tauri 멀티 윈도우(main + mascot) 및 ?window=mascot 기반 MascotPage 라우팅이 구성된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "마스코트 자율 행동 상태 머신(idle, walk, fall, edge_cling, drag, react)과 물리 훅이 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "Tauri 창 위치 제어 및 모니터 경계 연동을 통해 바탕화면 자율 이동·경계 달라붙기가 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "OS 활성 창 상단 테두리 감지(WindowBoundsProvider) IPC 기반이 구현된다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     }
   ]

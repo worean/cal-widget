@@ -217,6 +217,34 @@ body {
 }
 /* [/SPEC-002:AC-2] */
 
+/* [SPEC-007:AC-1] 독립 투명 마스코트 창 스타일 */
+.mascot-window {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 6px;
+  user-select: none;
+  cursor: grab;
+}
+
+.mascot-window__bubble {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+.mascot-window__actor--left {
+  transform: scaleX(-1);
+}
+
+.mascot-window__actor--right {
+  transform: scaleX(1);
+}
+/* [/SPEC-007:AC-1] */
+
 /* Calendar Board */
 .calendar-board__header {
   display: flex;

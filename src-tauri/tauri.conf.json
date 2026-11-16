@@ -24,6 +24,22 @@
         "fullscreen": false,
         "skipTaskbar": true,
         "alwaysOnTop": false
+      },
+      {
+        "label": "mascot",
+        "title": "Cal-Widget Mascot",
+        "url": "/?window=mascot",
+        "width": 150,
+        "height": 150,
+        "x": 160,
+        "y": 160,
+        "transparent": true,
+        "decorations": false,
+        "shadow": false,
+        "resizable": false,
+        "fullscreen": false,
+        "skipTaskbar": true,
+        "alwaysOnTop": true
       }
     ],
     "security": {
