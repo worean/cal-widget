@@ -138,24 +138,66 @@
       "id": "004",
       "slug": "google-calendar-provider",
       "title": "Google Calendar API (OAuth 2.0) 프로바이더 구현",
-      "status": "planned",
+      "status": "done",
       "priority": "high",
       "depends_on": ["003"],
       "layers": ["src-tauri", "src/features", "src/pages"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "doc_path": "docs/specs/004-google-calendar-provider.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "CalendarProvider 공통 어댑터 트레이트와 provider_accounts SQLite 테이블이 구축된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "Google OAuth 2.0 루프백 인증 플로우 및 토큰 리프레시가 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "Google Calendar API v3 일정 조회 및 SQLite 동기화가 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "SettingsPage에 Google 계정 연결/삭제 UI가 구현되고 빌드 검증이 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
       "id": "005",
       "slug": "caldav-provider",
       "title": "CalDAV (iCloud, Nextcloud 등) 프로바이더 구현",
-      "status": "planned",
+      "status": "done",
       "priority": "high",
       "depends_on": ["003"],
       "layers": ["src-tauri", "src/features", "src/pages"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "doc_path": "docs/specs/005-caldav-provider.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "CalDAV REPORT(calendar-query) HTTP 요청 및 Basic Auth 클라이언트가 구현된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "iCalendar(VEVENT) 파서가 구현되어 CalendarEventDto로 변환된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "SettingsPage에서 CalDAV 계정 등록/동기화/삭제가 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "[SPEC-005:AC-X] 주석이 명시되고 cargo check 및 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
