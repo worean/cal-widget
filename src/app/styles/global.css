@@ -1,0 +1,347 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", sans-serif;
+  color: #f8fafc;
+  background-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #1e293b, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.widget-layout {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Shared: Badge & IconButton */
+.badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+}
+
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Shared: Tooltip */
+.tooltip-wrapper {
+  position: relative;
+  display: block;
+}
+
+.tooltip-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  min-width: 160px;
+  max-width: 260px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  color: #f1f5f9;
+  font-size: 12px;
+  line-height: 1.45;
+  pointer-events: none;
+  white-space: normal;
+}
+
+.tooltip-box--top {
+  bottom: calc(100% + 6px);
+}
+
+.tooltip-box--bottom {
+  top: calc(100% + 6px);
+}
+
+/* Shared: MarkdownText */
+.markdown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.markdown-text__h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.markdown-text__p {
+  font-size: 12px;
+}
+
+.markdown-text__list-item {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.markdown-text__spacer {
+  height: 4px;
+}
+
+.markdown-text code {
+  background: rgba(255, 255, 255, 0.14);
+  padding: 0 4px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+}
+
+/* Character Pet */
+.character-pet {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.speech-bubble {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.character-avatar {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.character-avatar:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.character-avatar--greeting {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, #34d399, #38bdf8);
+}
+
+/* Calendar Board */
+.calendar-board__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.calendar-board__eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+}
+
+.calendar-board__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.calendar-board__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.calendar-board__mini {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.calendar-board__status {
+  font-size: 13px;
+  color: #94a3b8;
+  padding: 12px 0;
+}
+
+.calendar-board__status--error {
+  color: #fca5a5;
+}
+
+/* Mini Calendar */
+.mini-calendar__weekdays,
+.mini-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.mini-calendar__weekday {
+  font-size: 11px;
+  color: #94a3b8;
+  padding-bottom: 4px;
+}
+
+.mini-calendar__cell {
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.mini-calendar__day {
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.mini-calendar__day:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mini-calendar__day--today {
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.mini-calendar__day--selected {
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* Event Card */
+.event-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-card {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.event-card__bar {
+  width: 4px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.event-card__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.event-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.event-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+/* Settings */
+.settings-section__title {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.source-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.source-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+}
+
+.source-item__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.source-item__name {
+  flex: 1;
+}
+
+.settings-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #94a3b8;
+}

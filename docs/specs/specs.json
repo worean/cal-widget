@@ -1,0 +1,111 @@
+{
+  "project": "cal-widget",
+  "updated_at": "2026-11-16",
+  "specs": [
+    {
+      "id": "000",
+      "slug": "frontend-fsd-foundation",
+      "title": "React + TypeScript FSD 아키텍처 & 공용 UI 모듈화",
+      "status": "done",
+      "priority": "high",
+      "depends_on": [],
+      "layers": ["src/shared", "src/entities", "src/features", "src/widgets", "src/pages", "src/app"],
+      "doc_path": null,
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "FSD 계층 및 슬라이스별 Public API(index.ts) 구조가 구축된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "ICalendarRepository + MockCalendarRepository DI 구조가 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "Tooltip, MarkdownText, TimeRange, MiniCalendar, EventCard 등 세부 컴포넌트가 분리된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "yarn typecheck 및 yarn build가 오류 없이 통과한다",
+          "done": true
+        }
+      ],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "001",
+      "slug": "tauri-widget-window",
+      "title": "Tauri v2 초기화 & 투명 바탕화면 위젯 창 / 트레이 구성",
+      "status": "planned",
+      "priority": "high",
+      "depends_on": ["000"],
+      "layers": ["src-tauri", "src/app", "src/pages"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "002",
+      "slug": "character-animation-engine",
+      "title": "캐릭터 애니메이션 엔진 연동 (Rive / Lottie / Sprite 전략 구현)",
+      "status": "planned",
+      "priority": "medium",
+      "depends_on": ["000"],
+      "layers": ["src/entities", "src/widgets"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "003",
+      "slug": "sqlite-cache-and-ipc",
+      "title": "로컬 SQLite 캐시 & TauriCalendarRepository IPC 연결",
+      "status": "planned",
+      "priority": "high",
+      "depends_on": ["001"],
+      "layers": ["src-tauri", "src/shared", "src/app"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "004",
+      "slug": "google-calendar-provider",
+      "title": "Google Calendar API (OAuth 2.0) 프로바이더 구현",
+      "status": "planned",
+      "priority": "high",
+      "depends_on": ["003"],
+      "layers": ["src-tauri", "src/features", "src/pages"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "005",
+      "slug": "caldav-provider",
+      "title": "CalDAV (iCloud, Nextcloud 등) 프로바이더 구현",
+      "status": "planned",
+      "priority": "high",
+      "depends_on": ["003"],
+      "layers": ["src-tauri", "src/features", "src/pages"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    },
+    {
+      "id": "006",
+      "slug": "cross-platform-desktop-polish",
+      "title": "크로스 플랫폼(macOS/Windows/Linux) 창 고정·클릭 투과·패키징",
+      "status": "planned",
+      "priority": "medium",
+      "depends_on": ["001"],
+      "layers": ["src-tauri"],
+      "doc_path": null,
+      "acceptance_criteria": [],
+      "updated_at": "2026-11-16"
+    }
+  ]
+}
