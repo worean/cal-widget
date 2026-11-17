@@ -331,6 +331,34 @@
         }
       ],
       "updated_at": "2026-11-17"
+    },
+    {
+      "id": "010",
+      "slug": "ui-interaction-engine",
+      "title": "UI 상호작용 엔진 (날짜 선택·월 이동·일정 상세 펼침)",
+      "status": "done",
+      "priority": "high",
+      "depends_on": ["009"],
+      "layers": ["src/shared", "src/entities", "src/features", "src/widgets", "src/pages"],
+      "doc_path": "docs/specs/010-ui-interaction-engine.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "MiniCalendar 월 이동·날짜 선택·오늘 복귀와 우측 3일 보드 동적 전환이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "EventCard 클릭 시 마크다운 상세 설명 펼침/접힘이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "[SPEC-010:AC-X] 주석이 명시되고 yarn typecheck && yarn build 및 cargo check가 통과한다",
+          "done": true
+        }
+      ],
+      "updated_at": "2026-11-17"
     }
   ]
 }

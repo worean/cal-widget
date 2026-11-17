@@ -322,12 +322,70 @@ body {
   flex-direction: column;
 }
 
+/* [SPEC-010:AC-1] [SPEC-010:AC-2] 월 네비게이션 및 일정 상세 펼침 스타일 */
+.mini-calendar__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .mini-calendar__header {
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 10px;
   color: #e2e8f0;
 }
+
+.mini-calendar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-calendar__today-btn {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mini-calendar__today-btn:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+}
+
+.event-card--interactive {
+  cursor: pointer;
+}
+
+.event-card--interactive:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.event-card__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.event-card__chevron {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.event-card__details {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+/* [/SPEC-010:AC-1] [/SPEC-010:AC-2] */
 
 .mini-calendar__day {
   position: relative;

@@ -35,24 +35,35 @@ export interface DayBucket {
   isToday: boolean;
 }
 
+// [SPEC-010:AC-1] 선택된 월 전체 범위 조회 헬퍼
+export function getMonthRange(baseDate = new Date()): { start: Date; end: Date } {
+  const start = new Date(baseDate.getFullYear(), baseDate.getMonth(), 1, 0, 0, 0, 0);
+  const end = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0, 23, 59, 59, 999);
+  return { start, end };
+}
+
 export function getThreeDayBuckets(baseDate = new Date()): DayBucket[] {
-  const relativeLabels = ["오늘", "내일", "모레"];
-  return relativeLabels.map((label, offset) => {
+  const todayKey = toLocalDateKey(new Date());
+  return [0, 1, 2].map((offset) => {
     const d = new Date(baseDate);
     d.setDate(d.getDate() + offset);
+    const key = toLocalDateKey(d);
+    const isToday = key === todayKey;
+    const title = isToday ? "오늘" : offset === 0 ? "선택일" : `+${offset}일`;
     const dateLabel = d.toLocaleDateString("ko-KR", {
       month: "numeric",
       day: "numeric",
       weekday: "short",
     });
     return {
-      key: toLocalDateKey(d),
-      title: label,
+      key,
+      title,
       dateLabel,
-      isToday: offset === 0,
+      isToday,
     };
   });
 }
+// [/SPEC-010:AC-1]
 // [/SPEC-009:AC-2]
 
 export function formatTimeRange(startIso: string, endIso: string, isAllDay: boolean): string {

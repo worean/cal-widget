@@ -16,3 +16,4 @@
 | 007 | 데스크톱 마스코트 자율 이동, 화면 경계/창 위 인터랙션 (Shimeji 스타일) | `Done` | [007-desktop-mascot-behavior.md](007-desktop-mascot-behavior.md) |
 | 008 | macOS 네이티브 WidgetKit 위젯 익스텐션 (`.appex`) | `Deprecated` | [008-macos-native-widgetkit.md](008-macos-native-widgetkit.md) |
 | 009 | 월간 달력 + 실시간 시계 + 금일 포함 3일 일정 보드 UI | `Done` | [009-monthly-3day-board-ui.md](009-monthly-3day-board-ui.md) |
+| 010 | UI 상호작용 엔진 (날짜 선택·월 이동·일정 상세 펼침) | `Done` | [010-ui-interaction-engine.md](010-ui-interaction-engine.md) |

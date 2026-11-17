@@ -10,6 +10,8 @@ import { isTauriRuntime } from "@/shared/lib/platform";
 import { GlassPanel, IconButton, LiveClock, Tooltip } from "@/shared/ui";
 
 interface CalendarBoardWidgetProps {
+  selectedDate: Date;
+  onSelectDate: (date: Date) => void;
   events: CalendarEvent[];
   isLoading: boolean;
   error: string | null;
@@ -17,18 +19,22 @@ interface CalendarBoardWidgetProps {
   onOpenSettings: () => void;
 }
 
-// [SPEC-009:AC-1] [SPEC-009:AC-2] 좌측(실시간 시계 + 전체 월 달력) / 우측(금일 포함 3일 일정) 캘린더 보드
+// [SPEC-009:AC-1] [SPEC-009:AC-2] [SPEC-010:AC-1] 좌측(실시간 시계 + 전체 월 달력) / 우측(선택일 기준 3일 일정) 캘린더 보드
 export function CalendarBoardWidget({
+  selectedDate,
+  onSelectDate,
   events,
   isLoading,
   error,
   onRefresh,
   onOpenSettings,
 }: CalendarBoardWidgetProps) {
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [isDesktopPin, setIsDesktopPin] = useState(false);
 
-  const dayBuckets = useMemo(() => getThreeDayBuckets(), []);
+  const dayBuckets = useMemo(
+    () => getThreeDayBuckets(selectedDate),
+    [selectedDate],
+  );
 
   const { eventsByDay, eventDateKeys } = useMemo(() => {
     const grouped = new Map<string, CalendarEvent[]>();
@@ -63,7 +69,7 @@ export function CalendarBoardWidget({
           </div>
           <MiniCalendar
             selectedDate={selectedDate}
-            onSelectDate={setSelectedDate}
+            onSelectDate={onSelectDate}
             eventDateKeys={eventDateKeys}
           />
         </aside>
@@ -77,7 +83,7 @@ export function CalendarBoardWidget({
                 3-DAY SCHEDULE
               </span>
               <h2 className="calendar-board__title" data-tauri-drag-region>
-                이번 주 일정 (오늘 · 내일 · 모레)
+                3일 일정 ({dayBuckets[0]?.dateLabel} ~ {dayBuckets[2]?.dateLabel})
               </h2>
             </div>
             <div className="calendar-board__actions">

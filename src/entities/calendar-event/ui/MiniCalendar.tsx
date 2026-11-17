@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { toLocalDateKey } from "@/shared/lib/date";
+import { IconButton } from "@/shared/ui";
 
-// [SPEC-009:AC-1] 전체 현재 월 달력 컴포넌트 (일정 도트 및 월 타이틀 표시)
+// [SPEC-009:AC-1] [SPEC-010:AC-1] 전체 월 달력 (월 이동, 오늘 복귀, 일정 도트 표시)
 interface MiniCalendarProps {
   selectedDate: Date;
   onSelectDate?: (date: Date) => void;
@@ -44,11 +45,33 @@ export function MiniCalendar({
     return cells;
   }, [year, month]);
 
+  const moveMonth = (delta: number) => {
+    onSelectDate?.(new Date(year, month + delta, 1));
+  };
+
   return (
     <div className="mini-calendar">
-      <div className="mini-calendar__header">
-        {year}년 {month + 1}월
+      <div className="mini-calendar__header-row">
+        <span className="mini-calendar__header">
+          {year}년 {month + 1}월
+        </span>
+        <div className="mini-calendar__nav">
+          <IconButton onClick={() => moveMonth(-1)} title="이전 달">
+            ‹
+          </IconButton>
+          <button
+            type="button"
+            className="mini-calendar__today-btn"
+            onClick={() => onSelectDate?.(new Date())}
+          >
+            오늘
+          </button>
+          <IconButton onClick={() => moveMonth(1)} title="다음 달">
+            ›
+          </IconButton>
+        </div>
       </div>
+
       <div className="mini-calendar__weekdays">
         {WEEKDAYS.map((day) => (
           <span key={day} className="mini-calendar__weekday">
@@ -89,4 +112,4 @@ export function MiniCalendar({
     </div>
   );
 }
-// [/SPEC-009:AC-1]
+// [/SPEC-009:AC-1] [/SPEC-010:AC-1]
