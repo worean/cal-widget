@@ -260,17 +260,6 @@ pub fn export_widget_snapshot(conn: &Connection, snapshot_path: &Path) -> Result
     let json = serde_json::to_string_pretty(&snapshot).map_err(|e| e.to_string())?;
     fs::write(snapshot_path, &json).map_err(|e| e.to_string())?;
 
-    // [SPEC-008:AC-1] macOS App Group 공유 컨테이너 경로에도 위젯 스냅샷 동기화
-    #[cfg(target_os = "macos")]
-    if let Ok(home) = std::env::var("HOME") {
-        let group_dir = Path::new(&home)
-            .join("Library/Group Containers/group.com.worean.calwidget");
-        if fs::create_dir_all(&group_dir).is_ok() {
-            let _ = fs::write(group_dir.join("widget-snapshot.json"), &json);
-        }
-    }
-    // [/SPEC-008:AC-1]
-
     Ok(())
 }
 // [/SPEC-003:AC-2]

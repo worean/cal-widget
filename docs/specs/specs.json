@@ -269,11 +269,11 @@
     {
       "id": "008",
       "slug": "macos-native-widgetkit",
-      "title": "macOS 네이티브 WidgetKit 위젯 익스텐션 (.appex)",
-      "status": "done",
-      "priority": "high",
+      "title": "macOS 네이티브 WidgetKit 위젯 익스텐션 (.appex) [폐기]",
+      "status": "deprecated",
+      "priority": "low",
       "depends_on": ["003"],
-      "layers": ["src-tauri", "native/macos"],
+      "layers": [],
       "doc_path": "docs/specs/008-macos-native-widgetkit.md",
       "acceptance_criteria": [
         {
@@ -297,7 +297,40 @@
           "done": true
         }
       ],
-      "updated_at": "2026-11-16"
+      "updated_at": "2026-11-17"
+    },
+    {
+      "id": "009",
+      "slug": "monthly-3day-board-ui",
+      "title": "월간 달력 + 실시간 시계 + 금일 포함 3일 일정 보드 UI",
+      "status": "done",
+      "priority": "high",
+      "depends_on": ["000", "006"],
+      "layers": ["src/shared", "src/entities", "src/features", "src/widgets", "src/app"],
+      "doc_path": "docs/specs/009-monthly-3day-board-ui.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "좌측 패널 상단 실시간 시계(LiveClock)와 하단 전체 월 달력이 렌더링된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "우측 패널에 금일 포함 3일(오늘·내일·모레) 일정이 날짜별로 구분되어 표시된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "Calendar API 테스트용 .env.example 템플릿이 제공된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "[SPEC-009:AC-X] 주석이 명시되고 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
+      "updated_at": "2026-11-17"
     }
   ]
 }

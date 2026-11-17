@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import type { CalendarEvent } from "@/entities/calendar-event/model/types";
 import { useDependencies } from "@/shared/api/di-container";
-import { getTodayRange } from "@/shared/lib/date";
+// [SPEC-009:AC-2] 금일 포함 3일 범위 일정 조회
+import { getThreeDayRange } from "@/shared/lib/date";
 
 interface UseCalendarEventsResult {
   events: CalendarEvent[];
@@ -24,7 +25,7 @@ export function useCalendarEvents(): UseCalendarEventsResult {
     setIsLoading(true);
     setError(null);
     try {
-      const range = getTodayRange();
+      const range = getThreeDayRange();
       const data = await calendarRepository.getEvents(range);
       setEvents(data);
     } catch (err) {

@@ -1,8 +1,9 @@
 import type { CalendarEvent, CalendarSource } from "@/entities/calendar-event/model/types";
 import type { DateRange, ICalendarRepository } from "./calendar-repository";
 
-function createTodayAt(hour: number, minute = 0): string {
+function createDayAt(offsetDays: number, hour: number, minute = 0): string {
   const date = new Date();
+  date.setDate(date.getDate() + offsetDays);
   date.setHours(hour, minute, 0, 0);
   return date.toISOString();
 }
@@ -31,8 +32,8 @@ const MOCK_EVENTS: CalendarEvent[] = [
     provider: "caldav",
     title: "주간 스프린트 미팅",
     location: "온라인 회의실",
-    startAt: createTodayAt(10, 0),
-    endAt: createTodayAt(11, 0),
+    startAt: createDayAt(0, 10, 0),
+    endAt: createDayAt(0, 11, 0),
     isAllDay: false,
     color: "#10B981",
   },
@@ -40,10 +41,10 @@ const MOCK_EVENTS: CalendarEvent[] = [
     id: "evt-2",
     sourceId: "src-google-1",
     provider: "google",
-    title: "Tauri 위젯 아키텍처 학습",
-    description: "### 오늘의 학습 목표\n- **FSD** 폴더 구조 이해하기\n- `Repository` 패턴으로 데이터 분리",
-    startAt: createTodayAt(14, 30),
-    endAt: createTodayAt(16, 0),
+    title: "Cal-Widget UI 디자인 리뷰",
+    description: "### 체크리스트\n- 좌측 시계 + 월간 달력\n- 우측 금일 포함 3일 일정 보드",
+    startAt: createDayAt(0, 15, 0),
+    endAt: createDayAt(0, 16, 30),
     isAllDay: false,
     color: "#4285F4",
   },
@@ -51,11 +52,22 @@ const MOCK_EVENTS: CalendarEvent[] = [
     id: "evt-3",
     sourceId: "src-google-1",
     provider: "google",
-    title: "저녁 운동",
-    startAt: createTodayAt(19, 0),
-    endAt: createTodayAt(20, 0),
+    title: "Google / CalDAV API 실데이터 연동",
+    location: "홈 오피스",
+    startAt: createDayAt(1, 11, 0),
+    endAt: createDayAt(1, 12, 30),
     isAllDay: false,
-    color: "#F59E0B",
+    color: "#4285F4",
+  },
+  {
+    id: "evt-4",
+    sourceId: "src-caldav-1",
+    provider: "caldav",
+    title: "디자인 시스템 컴포넌트 점검",
+    startAt: createDayAt(2, 14, 0),
+    endAt: createDayAt(2, 15, 0),
+    isAllDay: false,
+    color: "#10B981",
   },
 ];
 
