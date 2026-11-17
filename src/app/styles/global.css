@@ -19,17 +19,34 @@ body {
   padding: 20px;
 }
 
-/* [SPEC-001:AC-2] Tauri 투명 위젯 창에서 바탕화면이 투과되도록 배경 제거 */
+/* [SPEC-001:AC-2] [SPEC-006:AC-3] Tauri 투명 위젯 창에서 창 크기에 맞춰 유연하게 확장 */
 :root[data-runtime="tauri"] body {
   background: transparent;
   padding: 8px;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
 }
-/* [/SPEC-001:AC-2] */
+
+:root[data-runtime="tauri"] #root {
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-runtime="tauri"] .widget-layout {
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-runtime="tauri"] .calendar-board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* [/SPEC-001:AC-2] [/SPEC-006:AC-3] */
 
 .widget-layout {
-  width: 340px;
+  width: 760px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -245,6 +262,203 @@ body {
 }
 /* [/SPEC-007:AC-1] */
 
+/* [SPEC-009:AC-1] [SPEC-009:AC-2] 좌측(시계+월달력) / 우측(3일 일정) 2컬럼 보드 & LiveClock */
+.live-clock {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.live-clock__time {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #f8fafc;
+}
+
+.live-clock__sec {
+  font-size: 16px;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.live-clock__date {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.calendar-board--wide {
+  padding: 18px;
+}
+
+.calendar-board__split {
+  display: flex;
+  gap: 20px;
+  min-height: 360px;
+}
+
+.calendar-board__left {
+  width: 260px;
+  flex-shrink: 0;
+  padding-right: 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-board__drag-bar {
+  cursor: grab;
+}
+
+.calendar-board__right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* [SPEC-010:AC-1] [SPEC-010:AC-2] 월 네비게이션 및 일정 상세 펼침 스타일 */
+.mini-calendar__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mini-calendar__header {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.mini-calendar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-calendar__today-btn {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mini-calendar__today-btn:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+}
+
+.event-card--interactive {
+  cursor: pointer;
+}
+
+.event-card--interactive:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.event-card__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.event-card__chevron {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.event-card__details {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+/* [/SPEC-010:AC-1] [/SPEC-010:AC-2] */
+
+.mini-calendar__day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.mini-calendar__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+  position: absolute;
+  bottom: 2px;
+}
+
+.mini-calendar__day--selected .mini-calendar__dot {
+  background: #0f172a;
+}
+
+.three-day-board {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.three-day-board__section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.three-day-board__day-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.three-day-board__day-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.three-day-board__day-badge--today {
+  background: rgba(56, 189, 248, 0.22);
+  color: #38bdf8;
+}
+
+.three-day-board__day-date {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.three-day-board__empty {
+  font-size: 12px;
+  color: #64748b;
+  padding: 4px 8px;
+}
+/* [/SPEC-009:AC-1] [/SPEC-009:AC-2] */
+
 /* [SPEC-004:AC-4] [SPEC-005:AC-3] 계정 연동 폼 스타일 */
 .account-form {
   display: flex;
@@ -339,6 +553,37 @@ body {
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* [SPEC-006:AC-3] 640px 이상 대형 보드일 때 2컬럼(달력 + 일정) 레이아웃 */
+.calendar-board__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.calendar-board__events {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@media (min-width: 640px) {
+  .calendar-board__content {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .calendar-board__mini {
+    width: 280px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-right: 16px;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+/* [/SPEC-006:AC-3] */
 
 .calendar-board__status {
   font-size: 13px;

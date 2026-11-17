@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import type { CalendarEvent } from "@/entities/calendar-event/model/types";
 import { useDependencies } from "@/shared/api/di-container";
-import { getTodayRange } from "@/shared/lib/date";
+// [SPEC-010:AC-1] 선택된 월 전체 범위 조회로 월 달력 도트 및 3일 보드 동시 지원
+import { getMonthRange } from "@/shared/lib/date";
 
 interface UseCalendarEventsResult {
   events: CalendarEvent[];
@@ -12,19 +13,24 @@ interface UseCalendarEventsResult {
 
 /**
  * Custom Hook (비즈니스 로직 분리):
- * UI 컴포넌트가 Repository 호출, 로딩, 에러 상태를 직접 다루지 않도록 캡슐화합니다.
+ * 선택된 기준 월의 일정을 조회/동기화합니다.
  */
-export function useCalendarEvents(): UseCalendarEventsResult {
+export function useCalendarEvents(
+  selectedDate: Date = new Date(),
+): UseCalendarEventsResult {
   const { calendarRepository } = useDependencies();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const year = selectedDate.getFullYear();
+  const month = selectedDate.getMonth();
+
   const loadEvents = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const range = getTodayRange();
+      const range = getMonthRange(new Date(year, month, 1));
       const data = await calendarRepository.getEvents(range);
       setEvents(data);
     } catch (err) {
@@ -32,7 +38,7 @@ export function useCalendarEvents(): UseCalendarEventsResult {
     } finally {
       setIsLoading(false);
     }
-  }, [calendarRepository]);
+  }, [calendarRepository, year, month]);
 
   const refresh = useCallback(async () => {
     setIsLoading(true);
@@ -51,3 +57,4 @@ export function useCalendarEvents(): UseCalendarEventsResult {
 
   return { events, isLoading, error, refresh };
 }
+// [/SPEC-010:AC-1]

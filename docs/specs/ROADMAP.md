@@ -12,6 +12,8 @@
 | 003 | 로컬 SQLite 캐시 & `TauriCalendarRepository` IPC 연결 | `Done` | [003-sqlite-cache-and-ipc.md](003-sqlite-cache-and-ipc.md) |
 | 004 | Google Calendar API (OAuth 2.0) 프로바이더 구현 | `Done` | [004-google-calendar-provider.md](004-google-calendar-provider.md) |
 | 005 | CalDAV (iCloud, Nextcloud 등) 프로바이더 구현 | `Done` | [005-caldav-provider.md](005-caldav-provider.md) |
-| 006 | 크로스 플랫폼(macOS/Windows/Linux) 창 고정·클릭 투과·패키징 | `Planned` | (작성 예정) |
+| 006 | 크로스 플랫폼 창 고정 · 바탕화면 보드 모드 · 반응형 확장 | `Done` | [006-cross-platform-desktop-polish.md](006-cross-platform-desktop-polish.md) |
 | 007 | 데스크톱 마스코트 자율 이동, 화면 경계/창 위 인터랙션 (Shimeji 스타일) | `Done` | [007-desktop-mascot-behavior.md](007-desktop-mascot-behavior.md) |
-| 008 | macOS 네이티브 WidgetKit 위젯 익스텐션 (`.appex`) | `Done` | [008-macos-native-widgetkit.md](008-macos-native-widgetkit.md) |
+| 008 | macOS 네이티브 WidgetKit 위젯 익스텐션 (`.appex`) | `Deprecated` | [008-macos-native-widgetkit.md](008-macos-native-widgetkit.md) |
+| 009 | 월간 달력 + 실시간 시계 + 금일 포함 3일 일정 보드 UI | `Done` | [009-monthly-3day-board-ui.md](009-monthly-3day-board-ui.md) |
+| 010 | UI 상호작용 엔진 (날짜 선택·월 이동·일정 상세 펼침) | `Done` | [010-ui-interaction-engine.md](010-ui-interaction-engine.md) |

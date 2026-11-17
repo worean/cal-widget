@@ -203,13 +203,34 @@
     {
       "id": "006",
       "slug": "cross-platform-desktop-polish",
-      "title": "크로스 플랫폼(macOS/Windows/Linux) 창 고정·클릭 투과·패키징",
-      "status": "planned",
+      "title": "크로스 플랫폼 창 고정 · 바탕화면 보드 모드 · 반응형 확장",
+      "status": "done",
       "priority": "medium",
       "depends_on": ["001"],
-      "layers": ["src-tauri"],
-      "doc_path": null,
-      "acceptance_criteria": [],
+      "layers": ["src-tauri", "src/widgets", "src/app"],
+      "doc_path": "docs/specs/006-cross-platform-desktop-polish.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "트레이 메뉴와 IPC를 통해 창 레이어 모드 및 화면 채우기(Full Board) 토글을 지원한다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "macOS에서 바탕화면 고정 시 NSWindow 레벨 및 모든 데스크톱 Space 유지가 적용된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "창 크기 조절 및 창 너비에 따른 반응형 2컬럼 대형 보드 레이아웃을 지원한다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "[SPEC-006:AC-X] 주석이 명시되고 cargo check 및 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
       "updated_at": "2026-11-16"
     },
     {
@@ -248,11 +269,11 @@
     {
       "id": "008",
       "slug": "macos-native-widgetkit",
-      "title": "macOS 네이티브 WidgetKit 위젯 익스텐션 (.appex)",
-      "status": "done",
-      "priority": "high",
+      "title": "macOS 네이티브 WidgetKit 위젯 익스텐션 (.appex) [폐기]",
+      "status": "deprecated",
+      "priority": "low",
       "depends_on": ["003"],
-      "layers": ["src-tauri", "native/macos"],
+      "layers": [],
       "doc_path": "docs/specs/008-macos-native-widgetkit.md",
       "acceptance_criteria": [
         {
@@ -276,7 +297,68 @@
           "done": true
         }
       ],
-      "updated_at": "2026-11-16"
+      "updated_at": "2026-11-17"
+    },
+    {
+      "id": "009",
+      "slug": "monthly-3day-board-ui",
+      "title": "월간 달력 + 실시간 시계 + 금일 포함 3일 일정 보드 UI",
+      "status": "done",
+      "priority": "high",
+      "depends_on": ["000", "006"],
+      "layers": ["src/shared", "src/entities", "src/features", "src/widgets", "src/app"],
+      "doc_path": "docs/specs/009-monthly-3day-board-ui.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "좌측 패널 상단 실시간 시계(LiveClock)와 하단 전체 월 달력이 렌더링된다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "우측 패널에 금일 포함 3일(오늘·내일·모레) 일정이 날짜별로 구분되어 표시된다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "Calendar API 테스트용 .env.example 템플릿이 제공된다",
+          "done": true
+        },
+        {
+          "id": "AC-4",
+          "text": "[SPEC-009:AC-X] 주석이 명시되고 yarn typecheck && yarn build가 통과한다",
+          "done": true
+        }
+      ],
+      "updated_at": "2026-11-17"
+    },
+    {
+      "id": "010",
+      "slug": "ui-interaction-engine",
+      "title": "UI 상호작용 엔진 (날짜 선택·월 이동·일정 상세 펼침)",
+      "status": "done",
+      "priority": "high",
+      "depends_on": ["009"],
+      "layers": ["src/shared", "src/entities", "src/features", "src/widgets", "src/pages"],
+      "doc_path": "docs/specs/010-ui-interaction-engine.md",
+      "acceptance_criteria": [
+        {
+          "id": "AC-1",
+          "text": "MiniCalendar 월 이동·날짜 선택·오늘 복귀와 우측 3일 보드 동적 전환이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-2",
+          "text": "EventCard 클릭 시 마크다운 상세 설명 펼침/접힘이 동작한다",
+          "done": true
+        },
+        {
+          "id": "AC-3",
+          "text": "[SPEC-010:AC-X] 주석이 명시되고 yarn typecheck && yarn build 및 cargo check가 통과한다",
+          "done": true
+        }
+      ],
+      "updated_at": "2026-11-17"
     }
   ]
 }
